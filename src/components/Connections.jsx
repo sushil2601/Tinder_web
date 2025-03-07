@@ -5,14 +5,16 @@ import { BASE_URL } from "../utils/constants"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addConnection } from "../utils/connectionSlice"
+import { Link } from "react-router"
 
 const Connections = () => {
 
  const dispatch = useDispatch();
  const connections = useSelector(store=>store.connection)
 
+
  const fetchConnection = async() =>{
-    const res = await axios.post(BASE_URL + '/user/connection',{wiwithCredentials : true})
+    const res = await axios.get(BASE_URL + '/user/connection',{withCredentials : true})
 
     dispatch(addConnection(res.data?.data))
  }
@@ -43,7 +45,9 @@ const Connections = () => {
                         <p>{about}</p>
                         {age && gender && <p>{age + ',' + gender}</p>} 
                     </div>
-
+                    <Link to={"/chat/" + _id}>
+                      <button className="btn btn-primary">Chat</button>
+                    </Link>
                     
                 </div>
             )

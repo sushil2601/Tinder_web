@@ -40,10 +40,16 @@ const Login = () => {
 
   const handleSignUp = async() =>{
     try{
-
         const res = await axios.post(BASE_URL + '/signup',
-            {firstName,lastName,emailId,password},
-            {withCredentials : true}
+            {
+                firstName,
+                lastName,
+                emailId,
+                password
+            },
+            {
+                withCredentials : true,
+            }
         )
         dispatch(addUser(res.data.data));
         return navigate('/profile');
@@ -105,7 +111,7 @@ const Login = () => {
             </div>
             <p className="text-red-600">{error}</p>
             <div className="card-actions justify-center">
-                <button className="btn btn-primary" onClick={isLoginForm ? handleLogin : handleSignUp}>{!isLoginForm ? 'Login' : 'Sign Up'}</button>
+                <button className="btn btn-primary" onClick={!isLoginForm ? handleLogin : handleSignUp}>{!isLoginForm ? 'Login' : 'Sign Up'}</button>
             </div>
             <p className="flex cursor-pointer m-auto p-2" onClick={()=>setIsLoginForm(value=>!value)}>{!isLoginForm ? 'New User? Sign Up Here' : 'Existing User? Login Here'}</p>
         </div>
